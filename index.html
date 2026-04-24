@@ -6,21 +6,18 @@
         <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <link rel="stylesheet" href="./resources/ol.css">
-        <link rel="stylesheet" href="resources/fontawesome-all.min.css">
-        <link href="resources/photon-geocoder-autocomplete.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="./resources/ol-layerswitcher.css">
-        <link rel="stylesheet" href="./resources/qgis2web.css">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet.photon.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
         <style>
         html, body, #map {
             width: 100%;
             height: 100%;
             padding: 0;
             margin: 0;
-        }
-        body {
-            background: linear-gradient(180deg, #d8eaf4 0%, #c4dceb 40%, #adc9dd 100%);
-            font-family: "Trebuchet MS", "Segoe UI", sans-serif;
         }
         #map {
             background: radial-gradient(circle at 15% 20%, #d4e6f1 0%, #b9d6e8 35%, #98bdd5 100%);
@@ -35,6 +32,7 @@
             border-radius: 12px;
             background: rgba(15, 37, 56, 0.78);
             color: #f4fbff;
+            font-family: "Trebuchet MS", "Segoe UI", sans-serif;
             font-size: 20px;
             font-weight: 700;
             letter-spacing: 0.4px;
@@ -42,6 +40,15 @@
             border: 1px solid rgba(255, 255, 255, 0.24);
             backdrop-filter: blur(4px);
             pointer-events: none;
+        }
+        .leaflet-control-layers,
+        .leaflet-bar {
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.24) !important;
+            border-radius: 10px !important;
+            overflow: hidden;
+        }
+        .leaflet-control-layers-expanded {
+            background: rgba(255, 255, 255, 0.94) !important;
         }
         #page-card-stack {
             position: absolute;
@@ -98,6 +105,7 @@
         #page-logo-label {
             margin: 0 0 6px 2px;
             color: rgba(17, 40, 59, 0.85);
+            font-family: "Trebuchet MS", "Segoe UI", sans-serif;
             font-size: 12px;
             font-weight: 700;
             letter-spacing: 0.2px;
@@ -107,6 +115,7 @@
             margin: 0;
             padding: 0 12px 12px 12px;
             color: rgba(17, 40, 59, 0.85);
+            font-family: "Trebuchet MS", "Segoe UI", sans-serif;
             font-size: 11px;
             line-height: 1.35;
         }
@@ -118,46 +127,19 @@
             width: 140px;
             height: auto;
         }
-        .ol-control {
-            background-color: rgba(255,255,255,.28) !important;
-            padding: 2px !important;
-            border-radius: 10px !important;
-            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
-        }
-        .ol-control > * {
-            background-color: rgba(255,255,255,.94) !important;
-            color: #123147 !important;
-            border-radius: 10px !important;
-        }
-        .ol-control > *:focus,
-        .ol-control > *:hover {
-            background-color: rgba(244, 250, 253, 0.96) !important;
-        }
-        .ol-attribution a,
-        .gcd-gl-input::placeholder,
-        .search-layer-input-search::placeholder {
-            color: #123147 !important;
-        }
-        .search-layer-input-search {
-            background-color: rgba(255,255,255,.94) !important;
-        }
-        .layer-switcher {
-            top: 4.5em;
-            right: 0.5em;
-        }
-        .layer-switcher.shown {
-            background: rgba(255,255,255,.94);
-            border-radius: 14px;
-            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-        }
-        .layer-switcher button {
-            background-color: rgba(255,255,255,.94) !important;
+        .css_PrediosImportantesp_relevantes2_copiar_2 {
+            background: transparent;
+            border: 0;
+            box-shadow: none;
+            color: #323232;
+            font-size: 10pt;
+            font-family: 'Arial', sans-serif;
+            font-weight: 400;
         }
         @media (max-width: 700px) {
             #map-title {
-                top: 10px;
                 font-size: 16px;
+                top: 10px;
                 padding: 8px 12px;
             }
             #page-card-stack {
@@ -181,25 +163,250 @@
                 <img src="images/optimizacion-predios-sas.png" alt="Optimizacion de predios SAS">
             </div>
         </div>
-        <div id="map">
-            <div id="popup" class="ol-popup">
-                <a href="#" id="popup-closer" class="ol-popup-closer"></a>
-                <div id="popup-content"></div>
-            </div>
-        </div>
-        <script src="resources/qgis2web_expressions.js"></script>
-        <script src="./resources/functions.js"></script>
-        <script src="./resources/ol.js"></script>
-        <script src="./resources/ol-layerswitcher.js"></script>
-        <script src="resources/photon-geocoder-autocomplete.min.js"></script>
+        <div id="map"></div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/L.Control.Layers.Tree.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet.photon.js"></script>
+        <script src="js/leaflet-measure.js"></script>
         <script src="layers/PrediosImportantesp_relevantes2_copiar_2.js"></script>
-        <script src="styles/PrediosImportantesp_relevantes2_copiar_2_style.js"></script>
-        <script src="./layers/layers.js" type="text/javascript"></script> 
-        <script src="./resources/Autolinker.min.js"></script>
-        <script src="./resources/qgis2web.js"></script>
         <script>
-        document.getElementById('page-credit-toggle').addEventListener('click', function() {
-            document.getElementById('page-credit-box').classList.toggle('is-open');
+        var map = L.map('map', {
+            zoomControl: false,
+            maxZoom: 28,
+            minZoom: 1
+        });
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+
+        function removeEmptyRowsFromPopupContent(content, feature) {
+            var tempDiv = document.createElement('div');
+            tempDiv.innerHTML = content;
+            var rows = tempDiv.querySelectorAll('tr');
+            for (var i = 0; i < rows.length; i++) {
+                var td = rows[i].querySelector('td.visible-with-data');
+                var key = td ? td.id : '';
+                if (td && td.classList.contains('visible-with-data') && feature.properties[key] == null) {
+                    rows[i].parentNode.removeChild(rows[i]);
+                }
+            }
+            return tempDiv.innerHTML;
+        }
+
+        function addClassToPopupIfMedia(content, popup) {
+            var tempDiv = document.createElement('div');
+            tempDiv.innerHTML = content;
+            var imgTd = tempDiv.querySelector('td img');
+            if (imgTd) {
+                var src = imgTd.getAttribute('src');
+                if (/\.(jpg|jpeg|png|gif|bmp|webp|avif)$/i.test(src)) {
+                    popup._contentNode.classList.add('media');
+                    setTimeout(function() {
+                        popup.update();
+                    }, 10);
+                } else {
+                    popup._contentNode.classList.remove('media');
+                }
+            } else {
+                popup._contentNode.classList.remove('media');
+            }
+        }
+
+        function buildPopupRow(label, value) {
+            if (value === null || value === undefined || value === '') {
+                return '';
+            }
+            return '<tr><th scope="row">' + label + '</th><td>' + autolinker.link(String(value)) + '</td></tr>';
+        }
+
+        function mercatorBoundsToLatLngBounds(minX, minY, maxX, maxY) {
+            var southWest = L.CRS.EPSG3857.unproject(L.point(minX, minY));
+            var northEast = L.CRS.EPSG3857.unproject(L.point(maxX, maxY));
+            return L.latLngBounds(southWest, northEast);
+        }
+
+        var zoomControl = L.control.zoom({
+            position: 'topleft'
+        }).addTo(map);
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0].innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0].className += ' fas fa-ruler';
+
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+
+        map.createPane('pane_Googlesatelite_0');
+        map.getPane('pane_Googlesatelite_0').style.zIndex = 400;
+        var layer_Googlesatelite_0 = L.tileLayer('http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {
+            pane: 'pane_Googlesatelite_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 18
+        });
+        map.addLayer(layer_Googlesatelite_0);
+
+        map.createPane('pane_CU54_1');
+        map.getPane('pane_CU54_1').style.zIndex = 401;
+        var img_bounds_CU54_1 = mercatorBoundsToLatLngBounds(-8244215.102477, 520571.981948, -8239698.109960, 528147.187398);
+        var layer_CU54_1 = new L.imageOverlay('layers/cu54_1_1.png', img_bounds_CU54_1, {
+            pane: 'pane_CU54_1'
+        });
+        bounds_group.addLayer(layer_CU54_1);
+        map.addLayer(layer_CU54_1);
+
+        function pop_PrediosImportantesp_relevantes2_copiar_2(feature, layer) {
+            var popupContent = '<table>'
+                + buildPopupRow('ID', feature.properties.ID)
+                + buildPopupRow('LOTCODIGO', feature.properties.LOTCODIGO)
+                + buildPopupRow('MANZCODIGO', feature.properties.MANZCODIGO)
+                + buildPopupRow('LOTDISPERS', feature.properties.LOTDISPERS)
+                + '</table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+            layer.on('popupopen', function(e) {
+                addClassToPopupIfMedia(content, e.popup);
+            });
+            layer.bindPopup(content, {maxHeight: 400});
+        }
+
+        function style_PrediosImportantesp_relevantes2_copiar_2_0() {
+            return {
+                pane: 'pane_PrediosImportantesp_relevantes2_copiar_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 0.988,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(231,113,72,1.0)',
+                interactive: true
+            };
+        }
+
+        map.createPane('pane_PrediosImportantesp_relevantes2_copiar_2');
+        map.getPane('pane_PrediosImportantesp_relevantes2_copiar_2').style.zIndex = 402;
+        map.getPane('pane_PrediosImportantesp_relevantes2_copiar_2').style['mix-blend-mode'] = 'normal';
+        var layer_PrediosImportantesp_relevantes2_copiar_2 = new L.geoJson(json_PrediosImportantesp_relevantes2_copiar_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_PrediosImportantesp_relevantes2_copiar_2',
+            layerName: 'layer_PrediosImportantesp_relevantes2_copiar_2',
+            pane: 'pane_PrediosImportantesp_relevantes2_copiar_2',
+            onEachFeature: function(feature, layer) {
+                pop_PrediosImportantesp_relevantes2_copiar_2(feature, layer);
+                if (feature.properties && feature.properties.ID !== null && feature.properties.ID !== undefined) {
+                    layer.bindTooltip(String(feature.properties.ID), {
+                        permanent: true,
+                        direction: 'center',
+                        className: 'css_PrediosImportantesp_relevantes2_copiar_2'
+                    });
+                }
+            },
+            style: style_PrediosImportantesp_relevantes2_copiar_2_0
+        });
+        bounds_group.addLayer(layer_PrediosImportantesp_relevantes2_copiar_2);
+        map.addLayer(layer_PrediosImportantesp_relevantes2_copiar_2);
+
+        var initialBounds = mercatorBoundsToLatLngBounds(-8242980.192661, 522653.582969, -8242512.087383, 522955.353808);
+        if (initialBounds.isValid()) {
+            map.fitBounds(initialBounds, {padding: [24, 24]});
+        } else if (bounds_group.getBounds().isValid()) {
+            map.fitBounds(bounds_group.getBounds(), {padding: [24, 24]});
+        }
+
+        var overlaysTree = [
+            {label: '<span style="display:inline-block;width:12px;height:12px;border:1px solid rgba(35,35,35,1.0);background:rgba(231,113,72,1.0);vertical-align:middle;margin-right:4px;"></span> Predios importantes', layer: layer_PrediosImportantesp_relevantes2_copiar_2},
+            {label: '<span style="display:inline-block;width:12px;height:12px;border:1px solid #6d7b88;background:rgba(255,255,255,0.75);vertical-align:middle;margin-right:4px;"></span> CU 5.4', layer: layer_CU54_1},
+            {label: 'Google satelite', layer: layer_Googlesatelite_0}
+        ];
+        var lay = L.control.layers.tree(null, overlaysTree, {
+            collapsed: false,
+        });
+        lay.addTo(map);
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var creditBoxElement = document.getElementById('page-credit-box');
+            var creditToggleElement = document.getElementById('page-credit-toggle');
+            if (creditBoxElement && creditToggleElement) {
+                creditToggleElement.addEventListener('click', function() {
+                    creditBoxElement.classList.toggle('is-open');
+                });
+            }
+
+            function newLayersListHeight() {
+                var layerScrollbarElement = document.querySelector('.leaflet-control-layers-scrollbar');
+                if (layerScrollbarElement) {
+                    var layersListElement = document.querySelector('.leaflet-control-layers-list');
+                    var originalHeight = layersListElement.style.height || window.getComputedStyle(layersListElement).height;
+                    var newHeight = parseFloat(originalHeight) - 50;
+                    layersListElement.style.height = newHeight + 'px';
+                }
+            }
+
+            var isLayersListExpanded = true;
+            var controlLayersElement = document.querySelector('.leaflet-control-layers');
+            var toggleLayerControl = document.querySelector('.leaflet-control-layers-toggle');
+
+            if (controlLayersElement && toggleLayerControl) {
+                toggleLayerControl.addEventListener('click', function() {
+                    if (isLayersListExpanded) {
+                        controlLayersElement.classList.remove('leaflet-control-layers-expanded');
+                    } else {
+                        controlLayersElement.classList.add('leaflet-control-layers-expanded');
+                    }
+                    isLayersListExpanded = !isLayersListExpanded;
+                    newLayersListHeight();
+                });
+
+                controlLayersElement.addEventListener('click', function(event) {
+                    var toggleLayerHeaderPointer = event.target.closest('.leaflet-layerstree-header-pointer span');
+                    if (toggleLayerHeaderPointer) {
+                        newLayersListHeight();
+                    }
+                });
+
+                setTimeout(function() {
+                    toggleLayerControl.click();
+                }, 10);
+                setTimeout(function() {
+                    toggleLayerControl.click();
+                }, 10);
+
+                var isSmallScreen = window.innerWidth < 650;
+                if (isSmallScreen) {
+                    setTimeout(function() {
+                        controlLayersElement.classList.remove('leaflet-control-layers-expanded');
+                        isLayersListExpanded = !isLayersListExpanded;
+                    }, 500);
+                }
+            }
+        });
+
+        setBounds();
+        L.ImageOverlay.include({
+            getBounds: function() {
+                return this._bounds;
+            }
         });
         </script>
     </body>
