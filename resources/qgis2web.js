@@ -517,10 +517,17 @@ var bottomRightContainerDiv = document.getElementById('bottom-right-container')
 
 
 //layerswitcher
-
-
-
-
+var layerSwitcher = new LayerSwitcher({
+    activationMode: 'click',
+    startActive: true,
+    tipLabel: 'Capas',
+    collapseTipLabel: 'Ocultar capas',
+    label: 'Capas',
+    collapseLabel: '×',
+    groupSelectStyle: 'children',
+    reverse: true
+});
+map.addControl(layerSwitcher);
 
 
 //attribution
@@ -588,6 +595,11 @@ document.addEventListener('DOMContentLoaded', function() {
     var searchLayerControl = document.getElementsByClassName('search-layer')[0];
     if (searchLayerControl) {
         topLeftContainerDiv.appendChild(searchLayerControl);
+    }
+    //layer switcher
+    var layerSwitcherControl = document.getElementsByClassName('layer-switcher')[0];
+    if (layerSwitcherControl) {
+        topRightContainerDiv.appendChild(layerSwitcherControl);
     }
     //scale line
     var scaleLineControl = document.getElementsByClassName('ol-scale-line')[0];
