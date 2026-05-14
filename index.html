@@ -50,6 +50,9 @@
         .leaflet-control-layers-expanded {
             background: rgba(255, 255, 255, 0.94) !important;
         }
+        .leaflet-control-layers-list {
+            display: block !important;
+        }
         #page-card-stack {
             position: absolute;
             left: 18px;
@@ -446,9 +449,15 @@
                 }
             }
 
-            var isLayersListExpanded = true;
             var controlLayersElement = document.querySelector('.leaflet-control-layers');
             var toggleLayerControl = document.querySelector('.leaflet-control-layers-toggle');
+            var isLayersListExpanded = false;
+
+            if (controlLayersElement) {
+                controlLayersElement.classList.add('leaflet-control-layers-expanded');
+                isLayersListExpanded = true;
+                newLayersListHeight();
+            }
 
             if (controlLayersElement && toggleLayerControl) {
                 toggleLayerControl.addEventListener('click', function() {
@@ -467,21 +476,6 @@
                         newLayersListHeight();
                     }
                 });
-
-                setTimeout(function() {
-                    toggleLayerControl.click();
-                }, 10);
-                setTimeout(function() {
-                    toggleLayerControl.click();
-                }, 10);
-
-                var isSmallScreen = window.innerWidth < 650;
-                if (isSmallScreen) {
-                    setTimeout(function() {
-                        controlLayersElement.classList.remove('leaflet-control-layers-expanded');
-                        isLayersListExpanded = !isLayersListExpanded;
-                    }, 500);
-                }
             }
         });
 
