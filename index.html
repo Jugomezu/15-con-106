@@ -50,9 +50,6 @@
         .leaflet-control-layers-expanded {
             background: rgba(255, 255, 255, 0.94) !important;
         }
-        .leaflet-control-layers-list {
-            display: block !important;
-        }
         #page-card-stack {
             position: absolute;
             left: 18px;
@@ -422,7 +419,7 @@
             {label: '<span style="display:inline-block;width:12px;height:12px;border:1px solid rgba(35,35,35,1.0);background:rgba(186,159,25,1.0);vertical-align:middle;margin-right:4px;"></span> Area util', layer: layer_AreaUtil_1},
             {label: '<span style="display:inline-block;width:12px;height:12px;border:1px solid rgba(0,128,0,1.0);background:rgba(0,128,0,0.4);vertical-align:middle;margin-right:4px;"></span> Consolidado', layer: layer_Consolidado_1},
             {label: '<span style="display:inline-block;width:12px;height:12px;border:1px solid rgba(35,35,35,1.0);background:rgba(231,113,72,1.0);vertical-align:middle;margin-right:4px;"></span> Predios importantes', layer: layer_PrediosImportantesp_relevantes2_copiar_2},
-            {label: '<span style="display:inline-block;width:12px;height:12px;border:1px solid #6d7b88;background:url(layers/cu54_1_0.png) center/cover no-repeat;vertical-align:middle;margin-right:4px;"></span> CU 5.4', layer: layer_CU54_1},
+            {label: '<span style="display:inline-block;width:12px;height:12px;border:1px solid #6d7b88;background:url(images/cu54_1_thumb.png) center/cover no-repeat;vertical-align:middle;margin-right:4px;"></span> CU 5.4', layer: layer_CU54_1},
             {label: '<span style="display:inline-block;width:12px;height:12px;border:1px solid #395267;background:linear-gradient(135deg,#21374a 0%,#395267 35%,#6a8554 100%);vertical-align:middle;margin-right:4px;"></span> Google Earth', layer: layer_Googlesatelite_0}
         ];
         var lay = L.control.layers.tree(null, overlaysTree, {
@@ -449,16 +446,9 @@
                 }
             }
 
+            var isLayersListExpanded = true;
             var controlLayersElement = document.querySelector('.leaflet-control-layers');
             var toggleLayerControl = document.querySelector('.leaflet-control-layers-toggle');
-            var isLayersListExpanded = false;
-
-            if (controlLayersElement) {
-                controlLayersElement.classList.add('leaflet-control-layers-expanded');
-                isLayersListExpanded = true;
-                newLayersListHeight();
-            }
-
             if (controlLayersElement && toggleLayerControl) {
                 toggleLayerControl.addEventListener('click', function() {
                     if (isLayersListExpanded) {
@@ -476,6 +466,19 @@
                         newLayersListHeight();
                     }
                 });
+                setTimeout(function() {
+                    toggleLayerControl.click();
+                }, 10);
+                setTimeout(function() {
+                    toggleLayerControl.click();
+                }, 10);
+                var isSmallScreen = window.innerWidth < 650;
+                if (isSmallScreen) {
+                    setTimeout(function() {
+                        controlLayersElement.classList.remove('leaflet-control-layers-expanded');
+                        isLayersListExpanded = !isLayersListExpanded;
+                    }, 500);
+                }
             }
         });
 
