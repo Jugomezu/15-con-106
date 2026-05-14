@@ -127,7 +127,7 @@
             width: 140px;
             height: auto;
         }
-        .css_PrediosImportantesp_relevantes2_copiar_2 {
+        .css_AreaUtil_1 {
             background: transparent;
             border: 0;
             box-shadow: none;
@@ -177,7 +177,7 @@
         <script src="js/leaflet.photon.js"></script>
         <script src="js/leaflet-measure.js"></script>
         <script src="layers/Consolidado_1.js"></script>
-        <script src="layers/AreaUtil_3.js"></script>
+        <script src="layers/AreaUtil_1.js"></script>
         <script src="layers/Retiros_2.js"></script>
         <script src="layers/PrediosImportantesp_relevantes2_copiar_2.js"></script>
         <script>
@@ -268,20 +268,17 @@
         map.addLayer(layer_Googlesatelite_0);
 
         map.createPane('pane_CU54_1');
-        map.getPane('pane_CU54_1').style.zIndex = 406;
-        var img_bounds_CU54_1 = mercatorBoundsToLatLngBounds(-8244215.102477, 520571.981948, -8239698.109960, 528147.187398);
-        var layer_CU54_1 = new L.imageOverlay('layers/cu54_1_1.png', img_bounds_CU54_1, {
+        map.getPane('pane_CU54_1').style.zIndex = 401;
+        var img_bounds_CU54_1 = [[4.6711943380407055,-74.05904432123937],[4.739014242148117,-74.01846748707517]];
+        var layer_CU54_1 = new L.imageOverlay('layers/cu54_1_0.png', img_bounds_CU54_1, {
             pane: 'pane_CU54_1'
         });
         bounds_group.addLayer(layer_CU54_1);
         map.addLayer(layer_CU54_1);
 
-        function pop_PrediosImportantesp_relevantes2_copiar_2(feature, layer) {
+        function pop_AreaUtil_1(feature, layer) {
             var popupContent = '<table>'
-                + buildPopupRow('ID', feature.properties.ID)
-                + buildPopupRow('LOTCODIGO', feature.properties.LOTCODIGO)
-                + buildPopupRow('MANZCODIGO', feature.properties.MANZCODIGO)
-                + buildPopupRow('LOTDISPERS', feature.properties.LOTDISPERS)
+                + buildPopupRow('Area_Util', feature.properties.Area_Util)
                 + '</table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
             layer.on('popupopen', function(e) {
@@ -290,45 +287,38 @@
             layer.bindPopup(content, {maxHeight: 400});
         }
 
-        function style_PrediosImportantesp_relevantes2_copiar_2_0() {
+        function style_AreaUtil_1_0() {
             return {
-                pane: 'pane_PrediosImportantesp_relevantes2_copiar_2',
+                pane: 'pane_AreaUtil_1',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
-                weight: 0.988,
+                weight: 1.0,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(231,113,72,1.0)',
+                fillColor: 'rgba(186,159,25,1.0)',
                 interactive: true
             };
         }
 
-        map.createPane('pane_PrediosImportantesp_relevantes2_copiar_2');
-        map.getPane('pane_PrediosImportantesp_relevantes2_copiar_2').style.zIndex = 402;
-        map.getPane('pane_PrediosImportantesp_relevantes2_copiar_2').style['mix-blend-mode'] = 'normal';
-        var layer_PrediosImportantesp_relevantes2_copiar_2 = new L.geoJson(json_PrediosImportantesp_relevantes2_copiar_2, {
+        map.createPane('pane_AreaUtil_1');
+        map.getPane('pane_AreaUtil_1').style.zIndex = 404;
+        map.getPane('pane_AreaUtil_1').style['mix-blend-mode'] = 'normal';
+        var layer_AreaUtil_1 = new L.geoJson(json_AreaUtil_1, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_PrediosImportantesp_relevantes2_copiar_2',
-            layerName: 'layer_PrediosImportantesp_relevantes2_copiar_2',
-            pane: 'pane_PrediosImportantesp_relevantes2_copiar_2',
+            dataVar: 'json_AreaUtil_1',
+            layerName: 'layer_AreaUtil_1',
+            pane: 'pane_AreaUtil_1',
             onEachFeature: function(feature, layer) {
-                pop_PrediosImportantesp_relevantes2_copiar_2(feature, layer);
-                if (feature.properties && feature.properties.ID !== null && feature.properties.ID !== undefined) {
-                    layer.bindTooltip(String(feature.properties.ID), {
-                        permanent: true,
-                        direction: 'center',
-                        className: 'css_PrediosImportantesp_relevantes2_copiar_2'
-                    });
-                }
+                pop_AreaUtil_1(feature, layer);
             },
-            style: style_PrediosImportantesp_relevantes2_copiar_2_0
+            style: style_AreaUtil_1_0
         });
-        bounds_group.addLayer(layer_PrediosImportantesp_relevantes2_copiar_2);
-        map.addLayer(layer_PrediosImportantesp_relevantes2_copiar_2);
+        bounds_group.addLayer(layer_AreaUtil_1);
+        map.addLayer(layer_AreaUtil_1);
 
         function pop_Consolidado_1(feature, layer) {
             var popupContent = '<table>'
@@ -373,50 +363,6 @@
         });
         bounds_group.addLayer(layer_Consolidado_1);
         map.addLayer(layer_Consolidado_1);
-
-        function pop_AreaUtil_3(feature, layer) {
-            var popupContent = '<table>'
-                + buildPopupRow('Area_Util', feature.properties.Area_Util)
-                + '</table>';
-            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
-            layer.on('popupopen', function(e) {
-                addClassToPopupIfMedia(content, e.popup);
-            });
-            layer.bindPopup(content, {maxHeight: 400});
-        }
-
-        function style_AreaUtil_3_0() {
-            return {
-                pane: 'pane_AreaUtil_3',
-                opacity: 1,
-                color: 'rgba(255, 165, 0, 1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 0.35,
-                fillColor: 'rgba(255, 165, 0, 0.35)',
-                interactive: true
-            };
-        }
-
-        map.createPane('pane_AreaUtil_3');
-        map.getPane('pane_AreaUtil_3').style.zIndex = 404;
-        map.getPane('pane_AreaUtil_3').style['mix-blend-mode'] = 'normal';
-        var layer_AreaUtil_3 = new L.geoJson(json_AreaUtil_3, {
-            attribution: '',
-            interactive: true,
-            dataVar: 'json_AreaUtil_3',
-            layerName: 'layer_AreaUtil_3',
-            pane: 'pane_AreaUtil_3',
-            onEachFeature: function(feature, layer) {
-                pop_AreaUtil_3(feature, layer);
-            },
-            style: style_AreaUtil_3_0
-        });
-        bounds_group.addLayer(layer_AreaUtil_3);
-        map.addLayer(layer_AreaUtil_3);
 
         function pop_Retiros_2(feature, layer) {
             var popupContent = '<table>'
@@ -469,12 +415,12 @@
         }
 
         var overlaysTree = [
-            {label: '<span style="display:inline-block;width:12px;height:12px;border:1px solid rgba(35,35,35,1.0);background:rgba(231,113,72,1.0);vertical-align:middle;margin-right:4px;"></span> Predios importantes', layer: layer_PrediosImportantesp_relevantes2_copiar_2},
+            {label: '<span style="display:inline-block;width:12px;height:3px;background:rgba(0,0,255,1.0);vertical-align:middle;margin-right:4px;"></span> Retiros', layer: layer_Retiros_2},
+            {label: '<span style="display:inline-block;width:12px;height:12px;border:1px solid rgba(35,35,35,1.0);background:rgba(186,159,25,1.0);vertical-align:middle;margin-right:4px;"></span> Area util', layer: layer_AreaUtil_1},
             {label: '<span style="display:inline-block;width:12px;height:12px;border:1px solid rgba(0,128,0,1.0);background:rgba(0,128,0,0.4);vertical-align:middle;margin-right:4px;"></span> Consolidado', layer: layer_Consolidado_1},
-            {label: '<span style="display:inline-block;width:12px;height:12px;border:1px solid rgba(255,165,0,1.0);background:rgba(255,165,0,0.35);vertical-align:middle;margin-right:4px;"></span> Area Util', layer: layer_AreaUtil_3},
-            {label: '<span style="display:inline-block;width:12px;height:12px;border:1px solid rgba(0,0,255,1.0);background:rgba(255,255,255,0.75);vertical-align:middle;margin-right:4px;"></span> Retiros', layer: layer_Retiros_2},
-            {label: '<span style="display:inline-block;width:12px;height:12px;border:1px solid #6d7b88;background:rgba(255,255,255,0.75);vertical-align:middle;margin-right:4px;"></span> CU 5.4', layer: layer_CU54_1},
-            {label: 'Google satelite', layer: layer_Googlesatelite_0}
+            {label: '<span style="display:inline-block;width:12px;height:12px;border:1px solid rgba(35,35,35,1.0);background:rgba(231,113,72,1.0);vertical-align:middle;margin-right:4px;"></span> Predios importantes', layer: layer_PrediosImportantesp_relevantes2_copiar_2},
+            {label: '<span style="display:inline-block;width:12px;height:12px;border:1px solid #6d7b88;background:url(layers/cu54_1_0.png) center/cover no-repeat;vertical-align:middle;margin-right:4px;"></span> CU 5.4', layer: layer_CU54_1},
+            {label: '<span style="display:inline-block;width:12px;height:12px;border:1px solid #395267;background:linear-gradient(135deg,#21374a 0%,#395267 35%,#6a8554 100%);vertical-align:middle;margin-right:4px;"></span> Google Earth', layer: layer_Googlesatelite_0}
         ];
         var lay = L.control.layers.tree(null, overlaysTree, {
             collapsed: false,
